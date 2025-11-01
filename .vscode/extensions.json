@@ -1,0 +1,4 @@
+{
+  // Recommended extensions (ESLint and Prettier) for the workspace
+  "recommendations": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"]
+}
