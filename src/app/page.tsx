@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function Home() {
   return (
     <div>
-      <main className="bg-black">
+      <main>
         <Image
           className="dark:invert"
           src="/logo.svg"
