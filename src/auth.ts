@@ -2,6 +2,7 @@ import connectMongoAdaptor from "@/database/connect-mongo-adaptor";
 import sendEmail from "@/lib/emails";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import NextAuth from "next-auth";
+import Google from "next-auth/providers/google";
 import Nodemailer from "next-auth/providers/nodemailer";
 import Resend from "next-auth/providers/resend";
 
@@ -36,6 +37,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       apiKey: process.env.RESEND_API_KEY,
       from: "Rein <noreply@account.userein.co>",
       sendVerificationRequest: sendEmail
+    }),
+
+    // Google OAuth provider to enable sign in with Google accounts
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET
     })
   ]
 });
