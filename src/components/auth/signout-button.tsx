@@ -5,7 +5,11 @@ import { signOut } from "next-auth/react";
 
 export default function SignOutButton() {
   return (
-    <Button onClick={() => signOut({ callbackUrl: "/auth/signin" })}>
+    <Button
+      variant="ghost"
+      className="p-0"
+      onClick={() => signOut({ callbackUrl: "/auth/signin" })}
+    >
       Sign out
     </Button>
   );
