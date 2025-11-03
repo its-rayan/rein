@@ -1,0 +1,28 @@
+/* eslint-disable @next/next/no-img-element */
+
+export default function UserAvatar({
+  url,
+  name
+}: {
+  url: string | undefined | null;
+  name: string | undefined | null;
+}) {
+  // If no URL is provided, render a fallback with the user's initial
+  if (!url) {
+    return (
+      <div className="relative inline-flex h-11 w-11 items-center justify-center overflow-hidden rounded-full bg-yellow-500">
+        <span className="font-medium text-white">{name?.charAt(0)}</span>
+      </div>
+    );
+  }
+
+  return (
+    <img
+      className="rounded-full"
+      src={url as string}
+      alt="User Avatar"
+      width={44}
+      height={44}
+    />
+  );
+}
