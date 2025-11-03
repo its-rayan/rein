@@ -59,7 +59,7 @@ export default function AuthEmailForm({ page }: Props) {
 
     await signIn(provider, {
       email,
-      redirectTo: "/dashboard",
+      redirectTo: "/dashboard/tasks",
       redirect: false
     });
   };

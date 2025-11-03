@@ -8,7 +8,7 @@ export default function GoogleOAuth() {
     <Button
       variant="outline"
       className="w-full"
-      onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+      onClick={() => signIn("google", { callbackUrl: "/dashboard/tasks" })}
     >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <path

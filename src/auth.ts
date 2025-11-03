@@ -1,3 +1,4 @@
+import authEdgeConfig from "@/auth-edge.config";
 import connectMongoAdaptor from "@/database/connect-mongo-adaptor";
 import sendEmail from "@/lib/emails";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
@@ -17,6 +18,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     error: "/auth/signin"
   },
 
+  session: { strategy: "jwt" },
+
+  ...authEdgeConfig,
   providers: [
     // Nodemailer provider to send sign in emails via SMTP for development
     Nodemailer({
