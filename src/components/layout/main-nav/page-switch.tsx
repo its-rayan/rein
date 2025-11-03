@@ -42,7 +42,7 @@ export default function PageSwitch() {
   const currentPage = pathname?.split("/")[2];
   return (
     <div className="flex w-full flex-1 justify-center">
-      <div className="bg-accent flex gap-0.5 rounded-full p-2">
+      <div className="bg-accent flex gap-0.5 rounded-full px-2 py-1.5">
         <SwitchButton
           url="/dashboard/tasks"
           page="tasks"

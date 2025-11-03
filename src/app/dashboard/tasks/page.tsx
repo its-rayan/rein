@@ -1,7 +1,10 @@
 export default async function TasksPage() {
   return (
-    <div className="flex max-w-md flex-col gap-6">
-      <h1>Tasks Page</h1>
+    <div className="mx-auto max-w-7xl">
+      <div className="flex flex-col">
+        <h1>Streak</h1>
+        <h1>Tasks</h1>
+      </div>
     </div>
   );
 }
