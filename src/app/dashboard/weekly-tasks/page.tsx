@@ -17,7 +17,7 @@ export default async function WeeklyTasksPage() {
         <Button size="sm">Add a task</Button>
       </div>
 
-      <div>
+      <div className="border-b-secondary flex justify-between border-b-2 pb-8">
         <div className="max-w-2xs">
           <h2 className="text-muted-foreground mb-4 font-semibold">
             Weekly Summary
@@ -46,6 +46,36 @@ export default async function WeeklyTasksPage() {
                 ..................................................................................
               </div>
               <p>10</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Progress bar */}
+        <div className="w-xl text-sm font-medium">
+          {/* keys */}
+          <div className="mb-10 flex items-center justify-end gap-4">
+            <div className="flex items-center gap-2">
+              <div className="h-3 w-3 rounded-full bg-green-600"></div>
+              <span className="text-muted-foreground">Completed</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="h-3 w-3 rounded-full bg-amber-600"></div>
+              <span className="text-muted-foreground">Pending</span>
+            </div>
+          </div>
+
+          {/* progress bar */}
+          <div className="flex gap-1">
+            <div className="relative h-3 w-[60%] rounded-full rounded-r-none bg-green-600">
+              <span className="text-muted-foreground absolute right-0 bottom-4">
+                60%
+              </span>
+            </div>
+
+            <div className="relative h-3 w-[40%] rounded-full rounded-l-none bg-amber-600">
+              <span className="text-muted-foreground absolute right-0 bottom-4">
+                40%
+              </span>
             </div>
           </div>
         </div>
