@@ -8,7 +8,7 @@ export default function DashboardLayout({
   return (
     <div className="mx-auto min-h-screen w-full">
       <MainNav />
-      <main>{children}</main>
+      <main className="mx-auto max-w-7xl">{children}</main>
     </div>
   );
 }

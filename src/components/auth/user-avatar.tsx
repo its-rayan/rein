@@ -21,8 +21,8 @@ export default function UserAvatar({
       className="rounded-full"
       src={url as string}
       alt="User Avatar"
-      width={36}
-      height={36}
+      width={28}
+      height={28}
     />
   );
 }

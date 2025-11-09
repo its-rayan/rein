@@ -3,7 +3,7 @@ import { auth } from "@/auth";
 import Image from "next/image";
 import Link from "next/link";
 
-import PageSwitch from "@/components/layout/main-nav/page-switch";
+import Navbar from "@/components/layout/main-nav/navbar";
 import UserDropdown from "@/components/layout/main-nav/user-dropdown";
 
 export default async function MainNav() {
@@ -11,24 +11,23 @@ export default async function MainNav() {
   return (
     <div className="bg-transparent py-4">
       <div className="mx-auto max-w-7xl">
-        <div className="flex flex-row items-center">
-          {/* logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <Image
-              className="dark:invert"
-              src="/logo.svg"
-              alt="Rein logomark"
-              width={48}
-              height={48}
-            />
-            <span className="text-xl font-semibold">Rein</span>
-          </Link>
+        <div className="flex flex-row items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Link href="/" className="flex items-center gap-2">
+              <Image
+                className="dark:invert"
+                src="/logo.svg"
+                alt="Rein logomark"
+                width={40}
+                height={40}
+              />
+              <span className="text-lg font-semibold">Rein</span>
+            </Link>
 
-          <PageSwitch />
-
-          <div>
-            <UserDropdown user={session?.user as any} />
+            <Navbar />
           </div>
+
+          <UserDropdown user={session?.user as any} />
         </div>
       </div>
     </div>

@@ -22,8 +22,9 @@ export default function UserDropdown({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="cursor-pointer p-0">
+        <Button variant="ghost" className="cursor-pointer">
           <UserAvatar url={user?.image} name={user?.name} />
+          {user?.name}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end">
