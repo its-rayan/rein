@@ -1,6 +1,8 @@
-import { Button } from "@/components/ui/button";
+"use client";
 
-export default async function GoalsPage() {
+import CreateGoalDialog from "@/components/goals/create-goal-dialog";
+
+export default function GoalsPage() {
   return (
     <div>
       <div className="flex justify-between">
@@ -11,10 +13,7 @@ export default async function GoalsPage() {
             your systems.
           </p>
         </div>
-
-        <div>
-          <Button size="sm">Add a goal</Button>
-        </div>
+        <CreateGoalDialog />
       </div>
     </div>
   );
