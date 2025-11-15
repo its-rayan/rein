@@ -1,0 +1,14 @@
+import { auth } from "@/auth";
+import { SessionUser } from "@/lib/oauth/types";
+import { cache } from "react";
+import "server-only"; // This file can only be imported by server components.
+
+export const verifySession = cache(async () => {
+  // check if user is logged in
+  const session = await auth();
+  if (!session) {
+    return Response.redirect("/auth/signin");
+  }
+
+  return { isAuth: true, user: session.user as SessionUser };
+});
