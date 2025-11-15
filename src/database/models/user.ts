@@ -1,6 +1,15 @@
-import mongoose from "mongoose";
+import mongoose, { Document, Schema, Types } from "mongoose";
 
-const userSchema = new mongoose.Schema({
+export interface IUser extends Document {
+  _id: Types.ObjectId;
+  name: string;
+  email: string;
+  image: string;
+  emailVerified: Date | null;
+  goals: Types.ObjectId[];
+}
+
+const userSchema = new Schema<IUser>({
   name: { type: String, required: true },
   email: {
     type: String,
@@ -14,6 +23,7 @@ const userSchema = new mongoose.Schema({
   goals: [{ type: mongoose.Schema.Types.ObjectId, ref: "Goal" }]
 });
 
-const User = mongoose.models.User || mongoose.model("User", userSchema);
+const User =
+  mongoose.models.User<IUser> || mongoose.model<IUser>("User", userSchema);
 
 export default User;

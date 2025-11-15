@@ -1,7 +1,17 @@
-import mongoose from "mongoose";
+import mongoose, { Schema, Types } from "mongoose";
 
-const goalSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+export interface IGoal {
+  _id: Types.ObjectId;
+  userId: Types.ObjectId;
+  name: string;
+  description: string;
+  deadline: Date;
+  status: "not_started" | "in_progress" | "completed" | "abandoned";
+  progress: number;
+}
+
+const goalSchema = new Schema<IGoal>({
+  userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
   name: { type: String, required: true, trim: true },
   description: { type: String },
   deadline: { type: Date, required: true },
@@ -13,6 +23,7 @@ const goalSchema = new mongoose.Schema({
   progress: { type: Number, default: 0 }
 });
 
-const Goal = mongoose.models.Goal || mongoose.model("Goal", goalSchema);
+const Goal =
+  mongoose.models.Goal<IGoal> || mongoose.model<IGoal>("Goal", goalSchema);
 
 export default Goal;
