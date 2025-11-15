@@ -1,5 +1,4 @@
 import authEdgeConfig from "@/auth-edge.config";
-import connectToDbClient from "@/database/connect-db-client";
 import connectMongoAdaptor from "@/database/connect-mongo-adaptor";
 import User from "@/database/models/user";
 import sendEmail from "@/lib/emails";
@@ -73,8 +72,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           name: username,
           image: `https://api.dicebear.com/6.x/initials/svg?seed=${username?.charAt(0)}`
         };
-
-        await connectToDbClient();
 
         const userExists = await User.findOne({ email: user?.email });
         if (!userExists) {
