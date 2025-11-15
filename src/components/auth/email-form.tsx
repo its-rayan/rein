@@ -5,6 +5,7 @@ import VerifyEmail from "@/components/auth/verify-email";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { SUCCESS_AUTH_REDIRECT_URL } from "@/utils/constants/auth";
 import { signIn } from "next-auth/react";
 import { useAction } from "next-safe-action/hooks";
 import { FormEvent, useState } from "react";
@@ -59,7 +60,7 @@ export default function AuthEmailForm({ page }: Props) {
 
     await signIn(provider, {
       email,
-      redirectTo: "/dashboard/tasks",
+      redirectTo: SUCCESS_AUTH_REDIRECT_URL,
       redirect: false
     });
   };

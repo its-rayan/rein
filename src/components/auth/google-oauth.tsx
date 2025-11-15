@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { SUCCESS_AUTH_REDIRECT_URL } from "@/utils/constants/auth";
 import { signIn } from "next-auth/react";
 
 export default function GoogleOAuth() {
@@ -8,7 +9,9 @@ export default function GoogleOAuth() {
     <Button
       variant="outline"
       className="w-full"
-      onClick={() => signIn("google", { callbackUrl: "/dashboard/tasks" })}
+      onClick={() =>
+        signIn("google", { callbackUrl: SUCCESS_AUTH_REDIRECT_URL })
+      }
     >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <path
