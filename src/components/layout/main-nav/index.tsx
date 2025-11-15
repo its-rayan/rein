@@ -1,13 +1,15 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { auth } from "@/auth";
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 
+import { UserAvatarSkeleton } from "@/components/auth/user-avatar";
 import Navbar from "@/components/layout/main-nav/navbar";
 import UserDropdown from "@/components/layout/main-nav/user-dropdown";
+import type { SessionUser } from "@/lib/oauth/types";
+import { useSession } from "next-auth/react";
 
-export default async function MainNav() {
-  const session = await auth();
+export default function MainNav() {
+  const { data: session, status } = useSession();
   return (
     <div className="bg-transparent py-4">
       <div className="mx-auto max-w-7xl">
@@ -27,7 +29,11 @@ export default async function MainNav() {
             <Navbar />
           </div>
 
-          <UserDropdown user={session?.user as any} />
+          {status === "loading" ? (
+            <UserAvatarSkeleton />
+          ) : (
+            <UserDropdown user={session?.user as SessionUser} />
+          )}
         </div>
       </div>
     </div>

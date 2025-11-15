@@ -1,5 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
+import { Skeleton } from "@/components/ui/skeleton";
+
 export default function UserAvatar({
   url,
   name
@@ -24,5 +26,16 @@ export default function UserAvatar({
       width={28}
       height={28}
     />
+  );
+}
+
+export function UserAvatarSkeleton() {
+  return (
+    <div className="flex items-center space-x-2">
+      <Skeleton className="bg-muted-foreground h-6 w-6 rounded-full" />
+      <div className="space-y-2">
+        <Skeleton className="bg-muted-foreground h-4 w-[90px]" />
+      </div>
+    </div>
   );
 }

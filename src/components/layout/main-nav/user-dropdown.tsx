@@ -7,18 +7,15 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger
-} from "../../ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 
 import SignOutButton from "@/components/auth/signout-button";
 import UserAvatar from "@/components/auth/user-avatar";
 import { Button } from "@/components/ui/button";
+import { SessionUser } from "@/lib/oauth/types";
 import { LogOut, User } from "lucide-react";
 
-export default function UserDropdown({
-  user
-}: {
-  user?: { name?: string; image?: string; email?: string };
-}) {
+export default function UserDropdown({ user }: { user: SessionUser }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
