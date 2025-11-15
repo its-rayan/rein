@@ -63,17 +63,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         credentials
       });
 
-      // check if the user is signing in with email provider
-      if (account?.type === "email") {
+      // check if the user is signing in with email provider for the first time
+      // or has yet to be given a default avatar and user name
+      if (account?.type === "email" && !user?.image) {
         // Add additional user details to the user object
         const username = user?.email?.split("@")[0];
         const updatedUserObj = {
           ...user,
           name: username,
-          image: `https://api.dicebear.com/6.x/initials/svg?seed=${username}`
+          image: `https://api.dicebear.com/6.x/initials/svg?seed=${username?.charAt(0)}`
         };
-
-        console.log("Updated user object:", updatedUserObj);
 
         await connectToDbClient();
 
@@ -90,7 +89,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
     async session({ token, session }) {
       if (token) {
-        session.user.id = token.id as string;
         session.user.name = token.name as string;
         session.user.email = token.email as string;
         session.user.image = token.picture as string;
@@ -99,22 +97,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return session;
     },
 
-    async jwt({ token, user }) {
-      await connectToDbClient();
-      const dbUser = await User.findOne({ email: token.email });
-
-      if (!dbUser) {
-        if (user) {
-          token.id = user?.id;
-        }
-        return token;
-      }
-
+    async jwt({ token }) {
       return {
-        id: dbUser.id,
-        name: dbUser.name,
-        email: dbUser.email,
-        picture: dbUser.image
+        name: token.name,
+        email: token.email,
+        picture: token.picture
       };
     }
   }
