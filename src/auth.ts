@@ -34,14 +34,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           pass: process.env.SMTP_PASSWORD
         }
       },
-      from: "Rein <noreply@account.mailhog>",
       sendVerificationRequest: sendEmail
     }),
 
     // Resend provider to send sign in emails via Resend for production
     Resend({
       apiKey: process.env.RESEND_API_KEY,
-      from: "Rein <noreply@account.userein.co>",
       sendVerificationRequest: sendEmail
     }),
 

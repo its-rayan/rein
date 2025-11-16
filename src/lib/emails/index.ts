@@ -9,16 +9,19 @@ type Params = {
   url: string;
 };
 
+const isProdEnv = process.env.VERCEL_ENV === "production" ? true : false;
+
 export default async function sendEmail(params: Params) {
-  console.log("sendEmail process.env.VERCEL_ENV: ", process.env.VERCEL_ENV);
-  const { identifier: email, url, provider } = params;
+  const { identifier: email, url } = params;
   const html = `<p>Sign in to ${url} by clicking <a href="${url}">here</a>.</p>`;
   const subject = `Your ${process.env.NEXT_PUBLIC_APP_NAME} Login Link`;
-  const from = provider.from as string;
+  const from = isProdEnv
+    ? "Rein <noreply@account.userein.co>"
+    : "Rein <noreply@account.mailhog>";
 
   const options = { email, from, subject, html };
 
-  if (process.env.VERCEL_ENV === "production") {
+  if (isProdEnv) {
     return await sendViaResend(options);
   }
 
