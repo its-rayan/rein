@@ -32,7 +32,8 @@ export default async function sendViaResend({
   });
 
   if (error) {
-    throw new Error(`Resend email error: ${error}`);
+    console.log("Resend email error");
+    throw new Error(error.message);
   }
 
   if (!data?.id) {
