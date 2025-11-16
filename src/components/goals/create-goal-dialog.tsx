@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/dialog";
 import { Field } from "@/components/ui/field";
 import { createGoalSchema, CreateGoalType } from "@/data/goal/goal.dto";
+import { getQueryClient } from "@/lib/react-query/get-query-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";
@@ -24,6 +25,8 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 export default function CreateGoalDialog() {
+  const queryClient = getQueryClient();
+
   const [open, setOpen] = useState(false);
 
   const { executeAsync, isPending } = useAction(createGoalAction, {
@@ -60,6 +63,7 @@ export default function CreateGoalDialog() {
     const { goal } = result.data;
 
     console.log("goal: ", goal);
+    queryClient.invalidateQueries({ queryKey: ["goals"] });
     toast.success(`Successfully created ${goal.name} goal`);
     toggleDialog(false);
   };

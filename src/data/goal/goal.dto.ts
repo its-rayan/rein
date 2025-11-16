@@ -2,7 +2,6 @@
 ###### Schema And Types For Data Transfer #################
 ##########################################################*/
 
-import { Types } from "mongoose";
 import z from "zod";
 
 export const createGoalSchema = z.object({
@@ -28,7 +27,7 @@ export type UpdateGoalType = z.infer<typeof updateGoalSchema>;
 
 // Goal model return from DB
 export const goalSchema = z.object({
-  id: z.instanceof(Types.ObjectId),
+  id: z.string(),
   name: z.string(),
   description: z.string().optional(),
   deadline: z.date().optional()

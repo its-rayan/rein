@@ -20,7 +20,7 @@ export const createGoal = async (goal: CreateGoalType): Promise<GoalType> => {
   await dbUser.save();
 
   return {
-    id: dbGoal._id,
+    id: dbGoal._id.toString(),
     name: dbGoal.name,
     description: dbGoal.description,
     deadline: dbGoal.deadline
@@ -31,12 +31,14 @@ export const getUserGoals = async (): Promise<GoalType[]> => {
   const { user } = await verifySession();
 
   const dbUserWithGoals = await populatedUserGoalsById(user.id);
-  const goals = dbUserWithGoals.goals.map((goal) => ({
-    id: goal._id,
-    name: goal.name,
-    description: goal.description,
-    deadline: goal.deadline
-  }));
+  const goals = dbUserWithGoals.goals
+    .map((goal) => ({
+      id: goal._id.toString(),
+      name: goal.name,
+      description: goal.description,
+      deadline: goal.deadline
+    }))
+    .reverse(); // Reverse to show the newest goals first
 
   return goals;
 };
