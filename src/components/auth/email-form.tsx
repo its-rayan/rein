@@ -56,7 +56,7 @@ export default function AuthEmailForm({ page }: Props) {
     setIsVerifyingEmail(true);
 
     const provider =
-      process.env.NODE_ENV === "production" ? "resend" : "nodemailer";
+      process.env.VERCEL_ENV === "production" ? "resend" : "nodemailer";
 
     await signIn(provider, {
       email,

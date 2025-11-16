@@ -25,7 +25,7 @@ export default function connectMongoAdaptor() {
   }
 
   // If we are in development, use the global promise
-  if (process.env.NODE_ENV === "development") {
+  if (process.env.VERCEL_ENV === "development") {
     const globalWithMongo = global as GlobalThis;
     globalWithMongo._mongoClient = undefined;
 

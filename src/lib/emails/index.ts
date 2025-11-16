@@ -17,7 +17,7 @@ export default async function sendEmail(params: Params) {
 
   const options = { email, from, subject, html };
 
-  if (process.env.NODE_ENV === "production") {
+  if (process.env.VERCEL_ENV === "production") {
     return await sendViaResend(options);
   }
 
