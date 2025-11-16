@@ -23,13 +23,17 @@ export default async function sendViaResend({
 
   console.log("✉️ Sending email via Resend to:", email);
 
-  const { data } = await resend.emails.send({
+  const { data, error } = await resend.emails.send({
     to: email,
     from,
     subject: subject || "Your Login Link",
     html,
     text: "Please use an HTML compatible email viewer to see this message."
   });
+
+  if (error) {
+    throw new Error(`Resend email error: ${error}`);
+  }
 
   if (!data?.id) {
     throw new Error("Resend email could not be sent");
