@@ -10,6 +10,7 @@ type Params = {
 };
 
 export default async function sendEmail(params: Params) {
+  console.log("sendEmail process.env.VERCEL_ENV: ", process.env.VERCEL_ENV);
   const { identifier: email, url, provider } = params;
   const html = `<p>Sign in to ${url} by clicking <a href="${url}">here</a>.</p>`;
   const subject = `Your ${process.env.NEXT_PUBLIC_APP_NAME} Login Link`;
