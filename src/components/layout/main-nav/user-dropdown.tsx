@@ -9,11 +9,11 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 
-import SignOutButton from "@/components/auth/signout-button";
 import UserAvatar from "@/components/auth/user-avatar";
 import { Button } from "@/components/ui/button";
 import { SessionUser } from "@/lib/oauth/types";
 import { LogOut, User } from "lucide-react";
+import { signOut } from "next-auth/react";
 
 export default function UserDropdown({ user }: { user: SessionUser }) {
   return (
@@ -35,9 +35,11 @@ export default function UserDropdown({ user }: { user: SessionUser }) {
             Settings
           </DropdownMenuItem>
         </DropdownMenuGroup>
-        <DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => signOut({ callbackUrl: "/auth/signin" })}
+        >
           <LogOut />
-          <SignOutButton />
+          Sign out
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

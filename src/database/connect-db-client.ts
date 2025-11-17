@@ -11,7 +11,7 @@ async function connectToDbClient() {
     throw new Error('Invalid/Missing environment variable: "MONGO_URI"');
   }
 
-  // check if connection is already estabilished
+  // check if connection is already established
   if (mongoose.connection.readyState >= 1) return;
 
   try {
