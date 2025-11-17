@@ -7,6 +7,7 @@ export interface IUser extends Document {
   image: string;
   emailVerified: Date | null;
   goals: Types.ObjectId[];
+  tasks: Types.ObjectId[];
 }
 
 const userSchema = new Schema<IUser>({
@@ -20,7 +21,8 @@ const userSchema = new Schema<IUser>({
   },
   image: { type: String },
   emailVerified: { type: Date },
-  goals: [{ type: mongoose.Schema.Types.ObjectId, ref: "Goal" }]
+  goals: [{ type: Types.ObjectId, ref: "Goal" }],
+  tasks: [{ type: Types.ObjectId, ref: "Task" }]
 });
 
 const User =

@@ -8,6 +8,7 @@ export interface IGoal {
   deadline: Date;
   status: "not_started" | "in_progress" | "completed" | "abandoned";
   progress: number;
+  tasks: Types.ObjectId[];
 }
 
 const goalSchema = new Schema<IGoal>({
@@ -20,7 +21,8 @@ const goalSchema = new Schema<IGoal>({
     enum: ["not_started", "in_progress", "completed", "abandoned"],
     default: "not_started"
   },
-  progress: { type: Number, default: 0 }
+  progress: { type: Number, default: 0 },
+  tasks: [{ type: Schema.Types.ObjectId, ref: "Task" }]
 });
 
 const Goal =
