@@ -87,6 +87,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
     async session({ token, session }) {
       if (token) {
+        session.user.id = token.id as string;
         session.user.name = token.name as string;
         session.user.email = token.email as string;
         session.user.image = token.picture as string;
@@ -95,11 +96,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return session;
     },
 
-    async jwt({ token }) {
+    async jwt({ token, user }) {
+      await connectToDbClient();
+      const dbUser = await User.findOne({ email: token.email });
+
+      if (!dbUser) {
+        if (user) {
+          token.id = user?.id;
+        }
+        return token;
+      }
+
       return {
-        name: token.name,
-        email: token.email,
-        picture: token.picture
+        id: dbUser.id,
+        name: dbUser.name,
+        email: dbUser.email,
+        picture: dbUser.image
       };
     }
   }
