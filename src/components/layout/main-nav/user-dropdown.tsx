@@ -11,7 +11,7 @@ import {
 
 import UserAvatar from "@/components/auth/user-avatar";
 import { Button } from "@/components/ui/button";
-import { SessionUser } from "@/lib/oauth/types";
+import { SessionUser } from "@/lib/auth/session";
 import { LogOut, User } from "lucide-react";
 import { signOut } from "next-auth/react";
 

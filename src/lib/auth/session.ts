@@ -1,5 +1,11 @@
 import { auth } from "@/auth";
-import { SessionUser } from "../oauth/types";
+
+export type SessionUser = {
+  id: string;
+  name: string;
+  email: string;
+  image: string;
+};
 
 export async function getCurrentSessionUser() {
   const session = await auth();
