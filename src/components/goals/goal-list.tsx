@@ -3,6 +3,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { getGoals } from "@/data/goal/goal.loader";
 import { useQuery } from "@tanstack/react-query";
+import Link from "next/link";
 
 function GoalListSkeleton() {
   return (
@@ -39,7 +40,19 @@ export default function GoalList() {
   return (
     <div>
       {goals?.map((goal) => (
-        <li key={goal.id}> {goal.name}</li>
+        <Link
+          key={goal.id}
+          href={`/dashboard/goals/${goal.id}?name=${goal.name}&description=${goal.description}`}
+          className="mb-4 block rounded-lg border border-gray-200 p-4 hover:bg-gray-50"
+        >
+          <h2 className="text-xl font-semibold">{goal.name}</h2>
+          <p className="text-gray-600">{goal.description}</p>
+          {goal.deadline && (
+            <p className="text-gray-500">
+              Deadline: {new Date(goal.deadline).toLocaleDateString()}
+            </p>
+          )}
+        </Link>
       ))}
     </div>
   );
