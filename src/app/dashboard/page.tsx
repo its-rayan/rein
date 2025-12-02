@@ -1,49 +1,94 @@
-import { AppSidebar } from "@/components/app-sidebar";
-import { NavActions } from "@/components/nav-actions";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbList,
-  BreadcrumbPage
-} from "@/components/ui/breadcrumb";
-import { Separator } from "@/components/ui/separator";
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger
-} from "@/components/ui/sidebar";
+"use client";
 
-export default function Page() {
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { ChevronDown, Flag, Plus, Zap } from "lucide-react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
+import { useCallback, useState } from "react";
+
+const QUERY_TAB_KEY = "tab";
+
+const tabs = [
+  {
+    id: "goals",
+    label: "Goals",
+    icon: <Zap fill="#f0b100" className="text-yellow-500" />
+  },
+  {
+    id: "milestones",
+    label: "Milestones",
+    icon: <Flag className="text-red-500" fill="red" />
+  }
+];
+
+export default function DashboardPage() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const activeTabParam = searchParams.get(QUERY_TAB_KEY);
+
+  const [isActiveTab, setIsActiveTab] = useState<string>(
+    activeTabParam ?? tabs[0].id
+  );
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams]
+  );
+
   return (
-    <SidebarProvider>
-      <AppSidebar />
-      <SidebarInset>
-        <header className="flex h-14 shrink-0 items-center gap-2">
-          <div className="flex flex-1 items-center gap-2 px-3">
-            <SidebarTrigger />
-            <Separator
-              orientation="vertical"
-              className="mr-2 data-[orientation=vertical]:h-4"
-            />
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbPage className="line-clamp-1">
-                    Project Management & Task Tracking
-                  </BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
-          </div>
-          <div className="ml-auto px-3">
-            <NavActions />
-          </div>
-        </header>
-        <div className="flex flex-1 flex-col gap-4 px-4 py-10">
-          <div className="bg-muted/50 mx-auto h-24 w-full max-w-3xl rounded-xl" />
-          <div className="bg-muted/50 mx-auto h-full w-full max-w-3xl rounded-xl" />
+    <div className="flex max-w-xl flex-col gap-10">
+      <div className="flex flex-col gap-2">
+        <h1 className="text-xl font-semibold">Your Dashboard</h1>
+        <p className="text-muted-foreground">
+          You don&apos;t have to be great to get started, but you have to get
+          started to be great.
+        </p>
+      </div>
+
+      <div className="flex justify-between">
+        <div className="flex gap-4">
+          {tabs.map((tab) => {
+            return (
+              <Button
+                key={tab.id}
+                size="sm"
+                variant="ghost"
+                className={cn(
+                  "cursor-pointer rounded-full transition-all duration-300",
+                  isActiveTab === tab.id &&
+                    "bg-accent [&>*:last-child]:rotate-180"
+                )}
+                onClick={() => {
+                  setIsActiveTab(tab.id);
+                  const queryString = createQueryString(QUERY_TAB_KEY, tab.id);
+                  router.push(`${pathname}?${queryString}`);
+                }}
+              >
+                {tab.icon}
+                {tab.label}
+                <ChevronDown />
+              </Button>
+            );
+          })}
         </div>
-      </SidebarInset>
-    </SidebarProvider>
+
+        <Button
+          size="sm"
+          variant="ghost"
+          className="cursor-pointer rounded-full"
+        >
+          <Plus />
+          Add New Item
+        </Button>
+      </div>
+    </div>
   );
 }
