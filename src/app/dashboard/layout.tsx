@@ -1,4 +1,5 @@
 import { AppSidebar } from "@/components/app-sidebar";
+import AuthProvider from "@/components/providers/auth-provider";
 import {
   SidebarInset,
   SidebarProvider,
@@ -11,17 +12,18 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <SidebarProvider>
-      <AppSidebar />
-      <SidebarInset>
-        <header className="flex h-14 shrink-0 items-center gap-2">
-          <div className="flex flex-1 items-center gap-2 px-3">
-            <SidebarTrigger />
-            {/* <Separator
+    <AuthProvider>
+      <SidebarProvider>
+        <AppSidebar />
+        <SidebarInset>
+          <header className="flex h-14 shrink-0 items-center gap-2">
+            <div className="flex flex-1 items-center gap-2 px-3">
+              <SidebarTrigger />
+              {/* <Separator
               orientation="vertical"
               className="mr-2 data-[orientation=vertical]:h-4"
             /> */}
-            {/* <Breadcrumb>
+              {/* <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem>
                   <BreadcrumbPage className="line-clamp-1">
@@ -30,15 +32,16 @@ export default function DashboardLayout({
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb> */}
-          </div>
-          {/* <div className="ml-auto px-3">
+            </div>
+            {/* <div className="ml-auto px-3">
             <NavActions />
           </div> */}
-        </header>
-        <div className="flex flex-1 flex-col gap-4 px-4 py-10">
-          <div className="mx-auto w-full max-w-xl">{children}</div>
-        </div>
-      </SidebarInset>
-    </SidebarProvider>
+          </header>
+          <div className="flex flex-1 flex-col gap-4 px-4 py-10">
+            <div className="mx-auto w-full max-w-xl">{children}</div>
+          </div>
+        </SidebarInset>
+      </SidebarProvider>
+    </AuthProvider>
   );
 }

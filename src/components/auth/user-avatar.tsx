@@ -12,7 +12,7 @@ export default function UserAvatar({
   // If no URL is provided, render a fallback with the user's initial
   if (!url) {
     return (
-      <div className="relative inline-flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-yellow-500">
+      <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-5 items-center justify-center rounded-full">
         <span className="font-medium text-white">{name?.charAt(0)}</span>
       </div>
     );
