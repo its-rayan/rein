@@ -17,8 +17,6 @@ export default async function MainAppLayout({
     notFound();
   }
 
-  console.log("MainAppLayout user:", user);
-
   return (
     <SidebarProvider>
       <AppSidebar user={user} />

@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { ChevronDown, LogOut } from "lucide-react";
@@ -18,6 +17,7 @@ import {
 } from "@/components/ui/sidebar";
 import { SessionUser } from "@/lib/auth/session";
 import { signOut } from "next-auth/react";
+import Image from "next/image";
 
 export function TeamSwitcher({ user }: { user: SessionUser }) {
   const avatar = user?.image;
@@ -34,13 +34,13 @@ export function TeamSwitcher({ user }: { user: SessionUser }) {
                   </span>
                 </div>
               ) : (
-                <img
+                <Image
                   className="flex aspect-square size-5 rounded-full"
                   src={avatar as string}
                   alt="User Avatar"
                   width={20}
                   height={20}
-                  referrerPolicy="no-referrer"
+                  unoptimized
                 />
               )}
 
