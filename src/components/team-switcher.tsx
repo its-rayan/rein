@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { ChevronDown, LogOut } from "lucide-react";
@@ -15,28 +16,35 @@ import {
   SidebarMenuButton,
   SidebarMenuItem
 } from "@/components/ui/sidebar";
-import { signOut, useSession } from "next-auth/react";
-import UserAvatar from "./auth/user-avatar";
+import { SessionUser } from "@/lib/auth/session";
+import { signOut } from "next-auth/react";
 
-export function TeamSwitcher() {
-  const { data: session } = useSession();
-
+export function TeamSwitcher({ user }: { user: SessionUser }) {
+  const avatar = user?.image;
   return (
     <SidebarMenu>
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton className="w-fit px-1.5">
-              <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-5 items-center justify-center rounded-full">
-                <UserAvatar
-                  url={session?.user?.image}
-                  name={session?.user?.name}
+              {!avatar ? (
+                <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-5 items-center justify-center rounded-full">
+                  <span className="flex items-center justify-center font-medium text-white uppercase">
+                    {user?.name?.charAt(0)}
+                  </span>
+                </div>
+              ) : (
+                <img
+                  className="flex aspect-square size-5 rounded-full"
+                  src={avatar as string}
+                  alt="User Avatar"
+                  width={20}
+                  height={20}
+                  referrerPolicy="no-referrer"
                 />
-              </div>
+              )}
 
-              <span className="truncate font-medium">
-                {session?.user?.name}
-              </span>
+              <span className="truncate font-medium">{user?.name}</span>
               <ChevronDown className="opacity-50" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
@@ -47,7 +55,7 @@ export function TeamSwitcher() {
             sideOffset={4}
           >
             <DropdownMenuLabel className="text-muted-foreground">
-              {session?.user?.email}
+              {user?.email}
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem

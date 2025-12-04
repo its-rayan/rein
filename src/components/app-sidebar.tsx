@@ -11,6 +11,7 @@ import {
   SidebarHeader,
   SidebarRail
 } from "@/components/ui/sidebar";
+import { SessionUser } from "@/lib/auth/session";
 import { NavFavorites } from "./nav-favorites";
 import { TeamSwitcher } from "./team-switcher";
 
@@ -224,11 +225,14 @@ const data = {
   ]
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({
+  user,
+  ...props
+}: React.ComponentProps<typeof Sidebar> & { user: SessionUser }) {
   return (
     <Sidebar className="border-0" {...props}>
       <SidebarHeader>
-        <TeamSwitcher />
+        <TeamSwitcher user={user} />
         <NavMain items={data.navMain} />
       </SidebarHeader>
       <SidebarContent>
