@@ -41,6 +41,7 @@ export function TeamSwitcher({ user }: { user: SessionUser }) {
                   width={20}
                   height={20}
                   unoptimized
+                  referrerPolicy="no-referrer"
                 />
               )}
 
