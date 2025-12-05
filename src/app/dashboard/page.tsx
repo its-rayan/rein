@@ -1,5 +1,6 @@
 "use client";
 
+import GoalList from "@/components/goals/goal-list";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ChevronDown, Flag, Plus, Zap } from "lucide-react";
@@ -47,47 +48,57 @@ export default function DashboardPage() {
     <div className="flex max-w-xl flex-col gap-10">
       <div className="flex flex-col gap-2">
         <h1 className="text-xl font-semibold">Your Dashboard</h1>
-        <p className="text-muted-foreground">
-          You don&apos;t have to be great to get started, but you have to get
-          started to be great.
-        </p>
       </div>
 
-      <div className="flex justify-between">
-        <div className="flex gap-4">
-          {tabs.map((tab) => {
-            return (
-              <Button
-                key={tab.id}
-                size="sm"
-                variant="ghost"
-                className={cn(
-                  "cursor-pointer rounded-full transition-all duration-300",
-                  isActiveTab === tab.id &&
-                    "bg-accent [&>*:last-child]:rotate-180"
-                )}
-                onClick={() => {
-                  setIsActiveTab(tab.id);
-                  const queryString = createQueryString(QUERY_TAB_KEY, tab.id);
-                  router.push(`${pathname}?${queryString}`);
-                }}
-              >
-                {tab.icon}
-                {tab.label}
-                <ChevronDown />
-              </Button>
-            );
-          })}
+      <div className="flex flex-col gap-4">
+        <div className="flex justify-between">
+          <div className="flex gap-4">
+            {tabs.map((tab) => {
+              return (
+                <Button
+                  key={tab.id}
+                  size="sm"
+                  variant="ghost"
+                  className={cn(
+                    "cursor-pointer rounded-full transition-all duration-300",
+                    isActiveTab === tab.id &&
+                      "bg-accent [&>*:last-child]:rotate-180"
+                  )}
+                  onClick={() => {
+                    setIsActiveTab(tab.id);
+                    const queryString = createQueryString(
+                      QUERY_TAB_KEY,
+                      tab.id
+                    );
+                    router.push(`${pathname}?${queryString}`);
+                  }}
+                >
+                  {tab.icon}
+                  {tab.label}
+                  <ChevronDown />
+                </Button>
+              );
+            })}
+          </div>
+
+          <Button
+            size="sm"
+            variant="ghost"
+            className="cursor-pointer rounded-full"
+          >
+            <Plus />
+            Add New Item
+          </Button>
         </div>
 
-        <Button
-          size="sm"
-          variant="ghost"
-          className="cursor-pointer rounded-full"
-        >
-          <Plus />
-          Add New Item
-        </Button>
+        {/* <div className="h-[calc(100vh - 1000px)]"> */}
+        <div className="max-h-[calc(100vh-220px)] overflow-y-scroll">
+          {isActiveTab === "goals" ? (
+            <GoalList />
+          ) : (
+            <h1>Milestones coming soon!</h1>
+          )}
+        </div>
       </div>
     </div>
   );

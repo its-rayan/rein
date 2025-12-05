@@ -38,21 +38,23 @@ export default function GoalList() {
   }
 
   return (
-    <div>
+    <div className="grid grid-cols-3 gap-4">
       {goals?.map((goal) => (
-        <Link
+        <div
           key={goal.id}
-          href={`/dashboard/goals/${goal.id}?name=${goal.name}&description=${goal.description}`}
-          className="mb-4 block rounded-lg border border-gray-200 p-4 hover:bg-gray-50"
+          className="relative flex h-52 flex-col rounded-lg bg-amber-500 p-4 text-white"
         >
-          <h2 className="text-xl font-semibold">{goal.name}</h2>
-          <p className="text-gray-600">{goal.description}</p>
-          {goal.deadline && (
-            <p className="text-gray-500">
-              Deadline: {new Date(goal.deadline).toLocaleDateString()}
-            </p>
-          )}
-        </Link>
+          <Link
+            href={`/dashboard/goals/${goal.id}?name=${goal.name}&description=${goal.description}`}
+            className="flex h-full w-full flex-col"
+          >
+            <div className="grow wrap-break-word">
+              <h2 className="line-clamp-5 font-medium">{goal.name}</h2>
+            </div>
+
+            <p className="text-sm font-medium">0% Progress</p>
+          </Link>
+        </div>
       ))}
     </div>
   );
