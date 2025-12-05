@@ -2,6 +2,7 @@
 
 import GoalList from "@/components/goals/goal-list";
 import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { ChevronDown, Flag, Plus, Zap } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -91,14 +92,13 @@ export default function DashboardPage() {
           </Button>
         </div>
 
-        {/* <div className="h-[calc(100vh - 1000px)]"> */}
-        <div className="max-h-[calc(100vh-220px)] overflow-y-scroll">
+        <ScrollArea className="h-[calc(100vh-220px)]">
           {isActiveTab === "goals" ? (
             <GoalList />
           ) : (
             <h1>Milestones coming soon!</h1>
           )}
-        </div>
+        </ScrollArea>
       </div>
     </div>
   );
