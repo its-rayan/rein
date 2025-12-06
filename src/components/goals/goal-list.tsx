@@ -1,10 +1,20 @@
 "use client";
 
 import MoreDropdown from "@/components/goals/more-dropdown";
+import { Button } from "@/components/ui/button";
+import {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle
+} from "@/components/ui/empty";
 import { Skeleton } from "@/components/ui/skeleton";
 import { GoalType } from "@/data/goal/goal.dto";
 import { getGoals } from "@/data/goal/goal.loader";
 import { useQuery } from "@tanstack/react-query";
+import { Zap } from "lucide-react";
 import Link from "next/link";
 
 function GoalListSkeleton() {
@@ -19,9 +29,21 @@ function GoalListSkeleton() {
 
 function EmptyGoalList() {
   return (
-    <div className="border-foreground-accent h-56 w-full rounded-md border">
-      <h1 className="text-4xl">No goals yet!</h1>
-    </div>
+    <Empty className="border-2 border-solid">
+      <EmptyHeader>
+        <EmptyMedia variant="icon" className="rounded-full">
+          <Zap fill="#f0b100" className="text-yellow-500" />
+        </EmptyMedia>
+        <EmptyTitle>No Goals Yet</EmptyTitle>
+        <EmptyDescription>
+          You haven&apos;t created any goals yet. Get started by creating your
+          first goal.
+        </EmptyDescription>
+      </EmptyHeader>
+      <EmptyContent>
+        <Button className="rounded-xl">Create Goal</Button>
+      </EmptyContent>
+    </Empty>
   );
 }
 
