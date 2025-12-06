@@ -12,8 +12,7 @@ import {
 } from "@/components/ui/empty";
 import { Skeleton } from "@/components/ui/skeleton";
 import { GoalType } from "@/data/goal/goal.dto";
-import { getGoals } from "@/data/goal/goal.loader";
-import { useQuery } from "@tanstack/react-query";
+import useGoals from "@/hooks/use-goals";
 import { Zap } from "lucide-react";
 import Link from "next/link";
 
@@ -69,10 +68,7 @@ function GoalCard({ goal }: { goal: GoalType }) {
 }
 
 export default function GoalList() {
-  const { data: goals, isLoading } = useQuery({
-    queryKey: ["goals"],
-    queryFn: getGoals
-  });
+  const { isLoading, goals } = useGoals();
 
   if (isLoading) {
     return <GoalListSkeleton />;
