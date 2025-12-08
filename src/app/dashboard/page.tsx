@@ -1,5 +1,6 @@
 "use client";
 
+import CreateGoalDialog from "@/components/goals/create-goal-dialog";
 import GoalList from "@/components/goals/goal-list";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -82,14 +83,18 @@ export default function DashboardPage() {
             })}
           </div>
 
-          <Button
-            size="sm"
-            variant="ghost"
-            className="cursor-pointer rounded-full"
-          >
-            <Plus />
-            Add New Item
-          </Button>
+          {isActiveTab === "goals" ? (
+            <CreateGoalDialog />
+          ) : (
+            <Button
+              size="sm"
+              variant="ghost"
+              className="cursor-pointer rounded-full capitalize"
+            >
+              <Plus />
+              New Milestone
+            </Button>
+          )}
         </div>
 
         <ScrollArea className="h-[calc(100vh-220px)]">

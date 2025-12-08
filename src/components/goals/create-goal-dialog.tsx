@@ -19,6 +19,7 @@ import { Field } from "@/components/ui/field";
 import { createGoalSchema, CreateGoalType } from "@/data/goal/goal.dto";
 import { getQueryClient } from "@/lib/react-query/get-query-client";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Plus } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -71,11 +72,18 @@ export default function CreateGoalDialog() {
   return (
     <Dialog open={open} onOpenChange={toggleDialog}>
       <DialogTrigger asChild>
-        <Button size="sm">Create goal</Button>
+        <Button
+          size="sm"
+          variant="ghost"
+          className="cursor-pointer rounded-full capitalize"
+        >
+          <Plus />
+          New goal
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Create goal</DialogTitle>
+          <DialogTitle>Create Goal</DialogTitle>
           <DialogDescription></DialogDescription>
         </DialogHeader>
 
